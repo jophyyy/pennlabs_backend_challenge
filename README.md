@@ -39,6 +39,10 @@ tag's table key should just be tag_id and then name. so each tag_id is matched w
 
 so how do i fit tag_id inside the club table? if each club has multiple tags, and there's only one row for each club. i don't think i should have multiple rows for each club's different tag. what if i created a different table. so the club table would have like "club_tags" simply as a number, let's say 1. then, in clubs_tags table, we have the club's code match with each tag_id. so, when reading from club_tags, we can just pull tag data for say locust clubs using the club's code. i don't think there's a good way to just put this into the club table. what if we just seperate it? like club name and stuff will come from the club table and then we get the club tags just from the clubs_tags table. so sqlalchemy calls data from both to convert to python then later code converts it into json. simpler than trying to squeeze it all into one table. multiple relationship tables? might work. 
 
+ok, now to put all these ideas into model.py. 
+
+first push: created club table for using sqlalchemy("db"). made columns as i said before, code as the key, clubs, description, and tag_id. 
+
 ## Developing
 
 0. Determine how to model the data contained within `clubs.json` and then complete `bootstrap.py`
