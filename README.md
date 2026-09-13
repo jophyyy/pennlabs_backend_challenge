@@ -127,6 +127,18 @@ ok, great, it works well. i'll have to work on modify club now.
 
 push 16: created the add new club route using post, request.get_json, input valiadion, and tag validation/creation
 
+for modifying a club, i'll have to do a patch/put request. like username too, i'll use the <> wildcard for "club_code" because it's dynamic variables. since the code is the primary key, i don't think we should change it. it's used in foreign keys so clubtag relationships would break if that happened. i think description and name can be easily changed though, as we don't use those for filtering. can we modify tags? it's not a primary key, so it should be possible. we don't want to remove entire tags because other clubs use it, so maybe we can just modify the clubtag connections for each club. like if we just made the modification wipe all the tags of the club, then add all the new connections. that way, it's less complicated than trying to figure out which tags to delete and keep.
+
+first, i'll find the club, or return an error if it doesn't exist. get the json, and update the updatable fields and then commit the changes. 
+
+there's an error in my "PUT" method. i have to put it into the same list as "PATCH", not seperate. 
+
+for tag creation / modification, i'll use the same tag logic in previous routes. great! it modified my broken chess club earlier by adding new tags and description. let me test if my enforcing the unchangability of the primary key works. works!
+
+push 17: created the modify club route by using a patch/put request, enforces primary key code not being able to be changed, and updates tag relationship.
+
+
+
 ## Developing
 
 0. Determine how to model the data contained within `clubs.json` and then complete `bootstrap.py`

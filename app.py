@@ -101,6 +101,42 @@ def create_club():
     
     return jsonify({"message": "Club created successfully"}), 201
 
+@app.route("/api/clubs/<club_code>", methods=["PATCH", "PUT"])
+def modify_club(club_code):
+    club = Club.query.filter_by(code=club_code).first()
+    if not club:
+        return jsonify({"message": "Club not found"}), 404
+    
+    data = request.get_json()
+    
+    if not data:
+        return jsonify({"message": "No data provided"}), 404
+    
+    if "code" in data and data["code"] != club_code:
+        return jsonify({"message": "Modifying club code is not allowed!"}), 400
+    
+    if "name" in data:
+        club.name = data["name"]
+    
+    if "description" in data:
+        club.description = data["description"]
+        
+    if "tags" in data:
+        ClubTags.query.filter_by(club_code=club.code).delete()
+        
+        for tag_name in data["tags"]:
+            tag = Tags.query.filter_by(name=tag_name).first()
+            if not tag:
+                tag = Tags(name=tag_name)
+                db.session.add(tag)
+                db.session.flush()
+            db.session.add(ClubTags(club_code=club.code, tag_id=tag.tag_id))
+        
+    db.session.commit()
+    
+    return jsonify({"message": "Club updated successfully"}), 200
+
+
 if __name__ == "__main__":
     app.run()
     
