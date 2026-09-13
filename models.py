@@ -1,4 +1,6 @@
-from app import db
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 class Club(db.Model):
     code = db.Column(db.String, primary_key= True)

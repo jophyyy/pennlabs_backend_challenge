@@ -1,13 +1,13 @@
 from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
+from models import *
 
 DB_FILE = "clubreview.db"
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_FILE}"
-db = SQLAlchemy(app)
+db.init_app(app)
 
-from models import *
+
 
 
 @app.route("/")
@@ -18,6 +18,14 @@ def main():
 @app.route("/api")
 def api():
     return jsonify({"message": "Welcome to the Penn Club Review API!."})
+
+
+@app.route("/api/clubs")
+def clubs():
+    clubs = Club.query.all()
+    print(clubs)
+    return "check terminal"
+    
 
 
 if __name__ == "__main__":

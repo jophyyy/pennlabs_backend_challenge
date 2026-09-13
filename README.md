@@ -83,6 +83,12 @@ now, i have to incorporate Club_Tags to tell the database which particular club 
 
 push 10: added flush(), commit(), and ClubTag relationship.
 
+testing bootstrap, it runs fine. but adding a print for clubs, tags, and clubtag relationships to see if it actually works, it outputs 5,3,3. which is wrong, because there should be 7 tags and 12 relationships. so, i have to debug.
+
+ok, i found the problem, it was indentation. my for loop for tags in clubs was outside of the for loop for clubs in data. pushing! now, bootstrap.py correctly outputs 5,7,12, meaning all of clubs.json is being correctly loaded onto the database! all of part 1 complete!
+
+part 2: apis. so our client side should send a get request to the api to return all the clubs and details. from there, our flask request needs to receive that, query it, turn it back into json, and return the json to the client. then we can use postman to test it. first, i'll add a route that simply queries the database to see if flask accepts it. 
+
 
 ## Developing
 
