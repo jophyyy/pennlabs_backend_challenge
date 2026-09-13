@@ -6,7 +6,7 @@ from app import app, db, DB_FILE
 from models import *
 
 def create_user():
-    user = User(username = "josh")
+    user = User(username = "josh", name="Josh", email="josh@engineering.upenn.edu")
     db.session.add(user)
     db.session.commit()
 

@@ -62,5 +62,15 @@ def tags():
         
     return jsonify(tag_data)
 
+@app.route("/api/user/<username>")
+def get_user_profile(username):
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+    return jsonify({
+        "username": user.username,
+        "name": user.name
+    })
+
 if __name__ == "__main__":
     app.run()

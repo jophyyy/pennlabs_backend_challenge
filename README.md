@@ -107,8 +107,15 @@ i think i'll add sql database filtering by replacing the .queryall already in ap
 
 push 13: created the search clubs route using sql database filtering.
 
-for the next route, i think i'll do the one that shows the number of clubs for each tag. our get request already return clubtag relationships, etc. i'll start by sending a get request to get the club data, then i'll sort through clubtags. since clubtags is organized by tag_id, i can simply just check how many rows in clubtags have the same tag_id. that's pretty simple, honestly. we can even use the built in count function in sqlalchemy. 
+for the next route, i think i'll do the one that shows the number of clubs for each tag. our get request already return clubtag relationships, etc. i'll start by sending a get request to get the tag data, then i'll sort through clubtags. since clubtags is organized by tag_id, i can simply just check how many rows in clubtags have the same tag_id. that's pretty simple, honestly. we can even use the built in count function in sqlalchemy. append the data into a dictionary, and then jsonify to send it back to the browser. works!
 
+push 14: created number of clubs for each tag route using get requests, dictionaries, and .count()
+
+i'll work on getting user profile route next. what would be included in a user profile that could be public/private? like username and name are public, but things like email, password (or its hash), pennkey, etc should be private. i'll first update my user class in models.py to include name and email. 
+
+to search through all the users, i'll query all users by checking the username. i'll use the <> flask wildcard so i don't have to create a new route for each username. it'll just be an argument where flask dynamically searches by username variable. also, an if statement to test if the username actually exists, and if not, then an error of 404 status is returned. private info, like the email, isn't returned. it's kept private.
+
+push 15: created the get user profile route with 404 handling and privacy protection using <> wildcards and queries.
 
 ## Developing
 

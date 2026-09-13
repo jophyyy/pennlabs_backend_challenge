@@ -18,6 +18,10 @@ class ClubTags(db.Model):
     
 class User(db.Model):
     username = db.Column(db.String, primary_key = True)
+    name = db.Column(db.String)
+    email = db.Column(db.String)
+    
+
 
 
 
