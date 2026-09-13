@@ -23,9 +23,24 @@ def api():
 @app.route("/api/clubs")
 def clubs():
     clubs = Club.query.all()
-    print(clubs)
-    return "check terminal"
+    clubs_data = []
     
+    for club in clubs:
+        club_tag_entries = ClubTags.query.filter_by(club_code=club.code).all()
+        tag_names=[]
+        for entry in club_tag_entries:
+            tag = Tags.query.filter_by(tag_id=entry.tag_id).first()
+            if tag:
+                tag_names.append(tag.name)
+                
+        clubs_data.append({
+            "code": club.code,
+            "name": club.name,
+            "description": club.description,
+            "tags": tag_names
+        })
+    
+    return jsonify(clubs_data)
 
 
 if __name__ == "__main__":

@@ -87,7 +87,18 @@ testing bootstrap, it runs fine. but adding a print for clubs, tags, and clubtag
 
 ok, i found the problem, it was indentation. my for loop for tags in clubs was outside of the for loop for clubs in data. pushing! now, bootstrap.py correctly outputs 5,7,12, meaning all of clubs.json is being correctly loaded onto the database! all of part 1 complete!
 
-part 2: apis. so our client side should send a get request to the api to return all the clubs and details. from there, our flask request needs to receive that, query it, turn it back into json, and return the json to the client. then we can use postman to test it. first, i'll add a route that simply queries the database to see if flask accepts it. 
+part 2: apis. so our client side should send a get request to the api to return all the clubs and details. from there, our flask request needs to receive that, query it, turn it back into json, and return the json to the client. then we can use postman to test it. first, i'll add a route that simply queries the database to see if flask accepts it. ok, it runs but there's an internal error. i think it's because my route doesn't return anything. 
+
+i'm trying to fix the 500 internal error. i'm not sure what's wrong right now. it seems that my current flask app isn't registered with sqlalchemy? 
+
+it seems that app.py was creating db and importing models while models.py was importing db from app.py. models.py executed app.py a second time because app.py was running directly in terminal, so there were two app.pys. then, i think that two sqlalchemy instances were created, leading to the error of not registering with sqlalchemy.  i think the fix is to not let models call app.py. 
+
+push 11: fixed circular dependency with db and app by moving db to models.py
+
+ok, now, i have to convert my custom Club class into json. i can't just do jsonify because it's a custom class so flask will just give me an error. i'd be simpler if the Club class just became a python dictionary. the code, name, and description are already on the object, but how do we incorporate the tags?
+
+
+
 
 
 ## Developing
