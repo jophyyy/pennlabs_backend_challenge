@@ -1,18 +1,18 @@
 from app import db
 
 class Club(db.Model):
-    code = db.Column(db.String, primary_key= true)
+    code = db.Column(db.String, primary_key= True)
     name = db.Column(db.String)
     description = db.Column(db.String)
     tags = db.relationship("Tags")
 
 class Tags(db.Model):
-    tag_id = db.Column(db.Integer, primary_key = true)
+    tag_id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String)
     
 class ClubTags(db.Model):
-    club_code = db.Column(db.String, db.ForeignKey("club.code"))
-    tag_id = db.Column(db.String, db.ForeignKey("tag.tag_id"))
+    club_code = db.Column(db.String, db.ForeignKey("club.code"), primary_key = True)
+    tag_id = db.Column(db.Integer, db.ForeignKey("tags.tag_id"), primary_key = True)
     
 
 

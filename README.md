@@ -49,6 +49,13 @@ i think i need to use foreign keys for clubs_tags. it'll help with pairing speci
 
 third push: added third table for clubtags, used foreign keys for better and more specific matching
 
+ran the test on bootstrap.py, error. error is basically at sqlalchemy import, it might be too old since there's a compability issue with python 3.14. it didn't even get to the application code. ima just update sqlalchemy, it seems that this project was supposed to be for python 3.9 and thus that's why the sqlalchemy is a little outdated. updated, code runs. but there's some errors in my code. mistyped True as "true". first simple error, there's more.
+
+reran it with fixed True, sqlalchemy is complaining about something. oh, i gave club tags table two columns but sqlalchemy can't read it because the database doesn't have a primary key. what should be it? club_code or the tag_id? because primary key helps us locate a single, specific row, and club_code and tag_id appear multiple times. so i don't think it can be either. it'd probably have to be a combination of the two somehow. what if both are the primary key? can we even do that? yes, apparently, both columns can combine into one primary key. let's see if that fixes it. 
+
+ok yay, bootstrap.py runs! pushing 4th edition!
+
+
 
 ## Developing
 
