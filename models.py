@@ -21,6 +21,10 @@ class User(db.Model):
     name = db.Column(db.String)
     email = db.Column(db.String)
     
+class UserFavorites(db.Model):
+    username = db.Column(db.String, db.ForeignKey("user.username"), primary_key = True)
+    club_code = db.Column(db.String, db.ForeignKey("club.code"), primary_key = True)
+    
 
 
 

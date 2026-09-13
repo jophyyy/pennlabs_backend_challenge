@@ -137,6 +137,11 @@ for tag creation / modification, i'll use the same tag logic in previous routes.
 
 push 17: created the modify club route by using a patch/put request, enforces primary key code not being able to be changed, and updates tag relationship.
 
+final route, favorite a club. so, a user can only favorite a club once. instead of storing it simply onto the club itself, i think we should use another table similar to ClubTags so we can match the user that favorites it and the specific club. so, in models.py, i'll create a similar helper table.
+
+this way, we can get the count of all favorites for a club just by using sqlalchemy's .count(). i'll use a post request to search for the club.
+
+i'll test by running it and letting the user josh favorite a club. there's an error somewhere? internal server error. alright, i've found it. i accidentally put club.code instead of club_code. the error still persists. 
 
 
 ## Developing

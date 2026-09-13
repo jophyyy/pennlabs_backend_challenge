@@ -39,11 +39,15 @@ def clubs():
             if tag:
                 tag_names.append(tag.name)
                 
+                
+        favorite_count = UserFavorites.query.filter_by(club_code=club.code).count()
+        
         clubs_data.append({
             "code": club.code,
             "name": club.name,
             "description": club.description,
-            "tags": tag_names
+            "tags": tag_names,
+            "favorite_count": favorite_count
         })
     
     return jsonify(clubs_data)
@@ -135,6 +139,32 @@ def modify_club(club_code):
     db.session.commit()
     
     return jsonify({"message": "Club updated successfully"}), 200
+
+@app.route("/api/clubs/<club_code>/favorite", methods = ["POST"])
+def favorite_club(club_code):
+    club = Club.query.filter_by(code = club_code).first()
+    if not club:
+        return jsonify({"message": "Club not found"}), 404
+    
+    data = request.get_json()
+    
+    if not data or "username" not in data:
+        return jsonify({"message": "Username is required"}), 400
+    
+    user = User.query.filter_by(username=data["username"]).first()
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+    
+    existing_fav = UserFavorites.query.filter_by(username = user.username, club_code = club.code).first()
+    if existing_fav:
+        return jsonify({"message": "User has already favorited this club"}), 400
+    
+    fav = UserFavorites(username = user.username, club_code = club.code)
+    db.session.add(fav)
+    db.session.commit()
+    
+    return jsonify({"message": f"Successfuly favorite {club.name}"}), 201
+
 
 
 if __name__ == "__main__":
