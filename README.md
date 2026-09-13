@@ -61,6 +61,10 @@ what info does penn clubs need from users? prob undergrad, year, interests, majo
 
 push 5: added user model, created user josh and saved him to the database.
 
+there's error with Club and Tags tables. it seems like sqlalchemy doesn't know how they're connected, might need foreign keys. testing by removing db.relationship line. okay fixed it. removing db.relationship fixed it because db.relationship tried to force a direct relationship rather than going through the middleman of Club_Tags. now, however, there are problems with my user model code. oh, i put the user creation code in the wrong file. put the user creation code into bootstrap.py. 
+
+push 6: fixed Club and Tag relationship, put user creation code in right place.
+
 ## Developing
 
 0. Determine how to model the data contained within `clubs.json` and then complete `bootstrap.py`

@@ -5,7 +5,9 @@ from app import app, db, DB_FILE
 from models import *
 
 def create_user():
-    print("TODO: Create a user called josh")
+    user = User(username = "josh")
+    db.session.add(user)
+    db.session.commit()
 
 def load_data():
     print("TODO: Load in clubs.json to the database.")

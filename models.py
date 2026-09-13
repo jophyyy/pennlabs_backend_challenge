@@ -4,7 +4,7 @@ class Club(db.Model):
     code = db.Column(db.String, primary_key= True)
     name = db.Column(db.String)
     description = db.Column(db.String)
-    tags = db.relationship("Tags")
+    
 
 class Tags(db.Model):
     tag_id = db.Column(db.Integer, primary_key = True)
@@ -16,10 +16,6 @@ class ClubTags(db.Model):
     
 class User(db.Model):
     username = db.Column(db.String, primary_key = True)
-    
-user = User(username = "josh")
-db.session.add(user)
-db.session.commit()
 
 
 
