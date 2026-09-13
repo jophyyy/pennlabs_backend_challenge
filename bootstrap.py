@@ -15,11 +15,18 @@ def load_data():
         data = json.load(file)
         for club in data:
             club_obj = Club(
-                code = club["code"]
-                name = club["name"]
+                code = club["code"],
+                name = club["name"],
                 description = club["description"]
             )
         db.session.add(club_obj)
+        for tag in club["tags"]:
+            existing_tag = Tags.query.filter_by(name=tag).first()
+            if existing_tag is None:
+                existing_tag = Tags(name=tag)
+                db.session.add(existing_tag)
+                
+            print(existing_tag.name)
 
 # No need to modify the below code.
 if __name__ == "__main__":

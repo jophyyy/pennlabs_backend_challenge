@@ -71,7 +71,15 @@ the load_data function should hypothetically just open clubs.json, turn it into 
 
 ok the data is definitely read. it's not a very clean print though. i'll have to format it. i think looping through data for individual clubs and then calling their parts? maybe make a club object as well, to store each datapoint.
 
-push 8: looped through data while storing each individual's club's datapoint in a club object.
+push 8: looped through data while storing each individual's club's datapoint in a club object. 
+
+i need to handle tags now. this is more complicated, with the matching tables. i'll use a for loop for tags because there can be multiple. testing with a for loop that loops through club["tags"] and a print statement to see if it actually will loop. 
+
+i don't want to create a new tag for the same instances, like i don't need 3 "undergrad" tags. it's redudant. therefore, i think i need to add a query filter that'll help me determine whether each tag checked already exists in a database. that way, i can reuse existing tags and determine if i need to create a new one. 
+
+push 9: looped through tags, used query filter to check for existing tags to reduce redudancy.
+
+
 
 
 ## Developing
