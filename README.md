@@ -117,6 +117,16 @@ to search through all the users, i'll query all users by checking the username. 
 
 push 15: created the get user profile route with 404 handling and privacy protection using <> wildcards and queries.
 
+i'll do add a new club route next. i can do a get request of all the clubs, then a post request to create a new club. i'll have to check if that club already exists, and if not, then successfully create the new club. i'll need to return errors if the get request doesn't provide json / doesn't provide valid codes or names. 
+
+i think creating a club with multiple tags will use the same tag logic in bootstrap.py. i'll also check if the tag exists, and create if not, and then use flush() to get a new tag_id. then, i'll create the clubtag relationship for each tag. i'll also have to reuse existing tags. using postman to send a post request, the test club i created was a "chess club". however, the description and tags are blank?
+
+i see the problem. i tried testing club creation simply with name and code first, so chess club was already created. i can't add the description and tags later with the create club route. i'll create a new different club to test description and tags.
+
+ok, great, it works well. i'll have to work on modify club now. 
+
+push 16: created the add new club route using post, request.get_json, input valiadion, and tag validation/creation
+
 ## Developing
 
 0. Determine how to model the data contained within `clubs.json` and then complete `bootstrap.py`

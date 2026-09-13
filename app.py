@@ -71,6 +71,36 @@ def get_user_profile(username):
         "username": user.username,
         "name": user.name
     })
+    
+@app.route("/api/clubs", methods=["POST"])
+def create_club():
+    data = request.get_json()
+    
+    if not data or "code" not in data or "name" not in data:
+        return jsonify({"message": "Code and name are required"}), 400
+    if Club.query.filter_by(code=data["code"]).first():
+        return jsonify({"message": "Club with this code already exists"}), 400
+    
+    new_club = Club(
+        code=data["code"],
+        name=data["name"],
+        description=data.get("description", "")
+    )
+    db.session.add(new_club)
+    
+    for tag_name in data.get("tags", []):
+        tag = Tags.query.filter_by(name=tag_name).first()
+        if not tag:
+            tag = Tags(name=tag_name)
+            db.session.add(tag)
+            db.session.flush()
+        relationship = ClubTags(club_code=new_club.code, tag_id=tag.tag_id)
+        db.session.add(relationship)
+        
+    db.session.commit()
+    
+    return jsonify({"message": "Club created successfully"}), 201
 
 if __name__ == "__main__":
     app.run()
+    
