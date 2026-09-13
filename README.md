@@ -113,21 +113,29 @@ i think for the tags, i'll loop through each club and query clubtags using club'
 
 push 12: converted custom Club class into dictionaries through looping and querying to get json response for get request.
 
+----------------- search route --------------------------
+
 ok, that's the get route done. i think i'll do search clubs next because it's also querying clubs. i think we can simply send a get request to get the data, but we need to filter it first using query? and how efficient can we make it? if we use python, we'd have to query everything, which takes a while when scaled up. it might be faster to use sql to filter the database natively. like, before any data is sent to python we can like filter the database using sql because transfering the data then filtering is extra steps. 
 
 i think i'll add sql database filtering by replacing the .queryall already in app.py. i'll get the search string from the url using flask's request args. we need to know check if there's a search term present in the link, and if not then just send it all (cause nothing specific is searched). then, i'll use sqlalchemy to filter the database. would it matter if there's different cases? i'll use the ilike filter, it makes the search case-insensitive. i'll also use sql's % thing to check if anywhere in the name there's the search term so where it appears doesn't matter.
 
 push 13: created the search clubs route using sql database filtering.
 
+----------------number of clubs per tag route -------------------------------------
+
 for the next route, i think i'll do the one that shows the number of clubs for each tag. our get request already return clubtag relationships, etc. i'll start by sending a get request to get the tag data, then i'll sort through clubtags. since clubtags is organized by tag_id, i can simply just check how many rows in clubtags have the same tag_id. that's pretty simple, honestly. we can even use the built in count function in sqlalchemy. append the data into a dictionary, and then jsonify to send it back to the browser. works!
 
 push 14: created number of clubs for each tag route using get requests, dictionaries, and .count()
+
+----------------- user profile route ----------------------
 
 i'll work on getting user profile route next. what would be included in a user profile that could be public/private? like username and name are public, but things like email, password (or its hash), pennkey, etc should be private. i'll first update my user class in models.py to include name and email. 
 
 to search through all the users, i'll query all users by checking the username. i'll use the <> flask wildcard so i don't have to create a new route for each username. it'll just be an argument where flask dynamically searches by username variable. also, an if statement to test if the username actually exists, and if not, then an error of 404 status is returned. private info, like the email, isn't returned. it's kept private.
 
 push 15: created the get user profile route with 404 handling and privacy protection using <> wildcards and queries.
+
+----------------------- new club route ---------------------
 
 i'll do add a new club route next. i can do a get request of all the clubs, then a post request to create a new club. i'll have to check if that club already exists, and if not, then successfully create the new club. i'll need to return errors if the get request doesn't provide json / doesn't provide valid codes or names. 
 
@@ -139,6 +147,8 @@ ok, great, it works well. i'll have to work on modify club now.
 
 push 16: created the add new club route using post, request.get_json, input valiadion, and tag validation/creation
 
+--------------- modify club ------------------
+
 for modifying a club, i'll have to do a patch/put request. like username too, i'll use the <> wildcard for "club_code" because it's dynamic variables. since the code is the primary key, i don't think we should change it. it's used in foreign keys so clubtag relationships would break if that happened. i think description and name can be easily changed though, as we don't use those for filtering. can we modify tags? it's not a primary key, so it should be possible. we don't want to remove entire tags because other clubs use it, so maybe we can just modify the clubtag connections for each club. like if we just made the modification wipe all the tags of the club, then add all the new connections. that way, it's less complicated than trying to figure out which tags to delete and keep.
 
 first, i'll find the club, or return an error if it doesn't exist. get the json, and update the updatable fields and then commit the changes. 
@@ -148,6 +158,8 @@ there's an error in my "PUT" method. i have to put it into the same list as "PAT
 for tag creation / modification, i'll use the same tag logic in previous routes. great! it modified my broken chess club earlier by adding new tags and description. let me test if my enforcing the unchangability of the primary key works. works!
 
 push 17: created the modify club route by using a patch/put request, enforces primary key code not being able to be changed, and updates tag relationship.
+
+-------------- favorite a club ------------------
 
 final route, favorite a club. so, a user can only favorite a club once. instead of storing it simply onto the club itself, i think we should use another table similar to ClubTags so we can match the user that favorites it and the specific club. so, in models.py, i'll create a similar helper table.
 
@@ -161,7 +173,7 @@ push 18: created userfavorites helper table and used a post request to make a fa
 
 all routes done! am i done? i think so. sorry if it's really long, i wanted to get whatever i was thinking down. thanks for reading!
 
-push 19: finalized README.md and WRITEUP.md
+push 19 & 20: finalized README.md and WRITEUP.md
 
 ## Developing
 
