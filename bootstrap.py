@@ -19,21 +19,25 @@ def load_data():
                 name = club["name"],
                 description = club["description"]
             )
-        db.session.add(club_obj)
-        for tag in club["tags"]:
-            existing_tag = Tags.query.filter_by(name=tag).first()
-            if existing_tag is None:
-                existing_tag = Tags(name=tag)
-                db.session.add(existing_tag)
-                db.session.flush()
-                
-            relationship = ClubTags(
-                club_code = club_obj.code,
-                tag_id = existing_tag.tag_id
-            )
+            db.session.add(club_obj)
             
-        db.session.add(relationship)
+            for tag in club["tags"]:
+                existing_tag = Tags.query.filter_by(name=tag).first()
+                if existing_tag is None:
+                    existing_tag = Tags(name=tag)
+                    db.session.add(existing_tag)
+                    db.session.flush()
+                    
+                relationship = ClubTags(
+                    club_code = club_obj.code,
+                    tag_id = existing_tag.tag_id
+                )
+                
+                db.session.add(relationship)
         db.session.commit()
+    print(Club.query.count())
+    print(Tags.query.count())
+    print(ClubTags.query.count())
 
 # No need to modify the below code.
 if __name__ == "__main__":
