@@ -48,7 +48,19 @@ def clubs():
     
     return jsonify(clubs_data)
 
-
+@app.route("/api/tags")
+def tags():
+    tags = Tags.query.all()
+    tag_data = []
+    
+    for tag in tags:
+        count = ClubTags.query.filter_by(tag_id=tag.tag_id).count()
+        tag_data.append({
+            "tag": tag.name,
+            "count": count
+        })
+        
+    return jsonify(tag_data)
 
 if __name__ == "__main__":
     app.run()

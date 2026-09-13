@@ -35,9 +35,6 @@ def load_data():
                 
                 db.session.add(relationship)
         db.session.commit()
-    print(Club.query.count())
-    print(Tags.query.count())
-    print(ClubTags.query.count())
 
 # No need to modify the below code.
 if __name__ == "__main__":

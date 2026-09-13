@@ -103,7 +103,11 @@ push 12: converted custom Club class into dictionaries through looping and query
 
 ok, that's the get route done. i think i'll do search clubs next because it's also querying clubs. i think we can simply send a get request to get the data, but we need to filter it first using query? and how efficient can we make it? if we use python, we'd have to query everything, which takes a while when scaled up. it might be faster to use sql to filter the database natively. like, before any data is sent to python we can like filter the database using sql because transfering the data then filtering is extra steps. 
 
-i think i'll add sql database filtering by replacing the .queryall already in app.py.
+i think i'll add sql database filtering by replacing the .queryall already in app.py. i'll get the search string from the url using flask's request args. we need to know check if there's a search term present in the link, and if not then just send it all (cause nothing specific is searched). then, i'll use sqlalchemy to filter the database. would it matter if there's different cases? i'll use the ilike filter, it makes the search case-sensitive. i'll also use sql's % thing to check if anywhere in the name there's the search term so where it appears doesn't matter.
+
+push 13: created the search clubs route using sql database filtering.
+
+for the next route, i think i'll do the one that shows the number of clubs for each tag. our get request already return clubtag relationships, etc. i'll start by sending a get request to get the club data, then i'll sort through clubtags. since clubtags is organized by tag_id, i can simply just check how many rows in clubtags have the same tag_id. that's pretty simple, honestly. we can even use the built in count function in sqlalchemy. 
 
 
 ## Developing
