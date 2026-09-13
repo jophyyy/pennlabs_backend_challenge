@@ -10,6 +10,11 @@ class Tags(db.Model):
     tag_id = db.Column(db.Integer, primary_key = true)
     name = db.Column(db.String)
     
+class ClubTags(db.Model):
+    club_code = db.Column(db.String, db.ForeignKey("club.code"))
+    tag_id = db.Column(db.String, db.ForeignKey("tag.tag_id"))
+    
+
 
 
 

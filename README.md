@@ -43,6 +43,13 @@ ok, now to put all these ideas into model.py.
 
 first push: created club table for using sqlalchemy("db"). made columns as i said before, code as the key, clubs, description, and tag_id. 
 
+second push: fixed tags_id in club table and added secondary table for tags as mentioned in initial thoughts for table relationships 
+
+i think i need to use foreign keys for clubs_tags. it'll help with pairing specific club and tag together for code reference.
+
+third push: added third table for clubtags, used foreign keys for better and more specific matching
+
+
 ## Developing
 
 0. Determine how to model the data contained within `clubs.json` and then complete `bootstrap.py`
