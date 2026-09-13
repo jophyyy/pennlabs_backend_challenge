@@ -55,7 +55,11 @@ reran it with fixed True, sqlalchemy is complaining about something. oh, i gave 
 
 ok yay, bootstrap.py runs! pushing 4th edition!
 
+part 2: making users
 
+what info does penn clubs need from users? prob undergrad, year, interests, major. and then, looking at the routes, i'll eventually need user info like their favoriting of clubs. so, i'll use username as a primary key, i'll also add columns like name, email, year. add favorite_clubs as well. there can be multiple favorite clubs, so i'll have to use the same logic i used for the club/tag relationship with multiple tables. 
+
+push 5: added user model, created user josh and saved him to the database.
 
 ## Developing
 

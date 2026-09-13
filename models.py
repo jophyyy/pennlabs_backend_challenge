@@ -14,8 +14,12 @@ class ClubTags(db.Model):
     club_code = db.Column(db.String, db.ForeignKey("club.code"), primary_key = True)
     tag_id = db.Column(db.Integer, db.ForeignKey("tags.tag_id"), primary_key = True)
     
-
-
+class User(db.Model):
+    username = db.Column(db.String, primary_key = True)
+    
+user = User(username = "josh")
+db.session.add(user)
+db.session.commit()
 
 
 
