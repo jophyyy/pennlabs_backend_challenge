@@ -79,7 +79,9 @@ i don't want to create a new tag for the same instances, like i don't need 3 "un
 
 push 9: looped through tags, used query filter to check for existing tags to reduce redudancy.
 
+now, i have to incorporate Club_Tags to tell the database which particular club has which tag, or the relationship. so, i'll create a Club_Tags object that can hold club code and tag_id. i added db.session.commit to actually commit to the database. i'll also use flush() when creating a new tag to flush it (or like send temperary changes to database) so that tag_id is available for the ClubTags relationship.
 
+push 10: added flush(), commit(), and ClubTag relationship.
 
 
 ## Developing

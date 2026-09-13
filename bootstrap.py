@@ -25,8 +25,15 @@ def load_data():
             if existing_tag is None:
                 existing_tag = Tags(name=tag)
                 db.session.add(existing_tag)
+                db.session.flush()
                 
-            print(existing_tag.name)
+            relationship = ClubTags(
+                club_code = club_obj.code,
+                tag_id = existing_tag.tag_id
+            )
+            
+        db.session.add(relationship)
+        db.session.commit()
 
 # No need to modify the below code.
 if __name__ == "__main__":
