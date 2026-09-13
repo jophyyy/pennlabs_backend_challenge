@@ -97,8 +97,13 @@ push 11: fixed circular dependency with db and app by moving db to models.py
 
 ok, now, i have to convert my custom Club class into json. i can't just do jsonify because it's a custom class so flask will just give me an error. i'd be simpler if the Club class just became a python dictionary. the code, name, and description are already on the object, but how do we incorporate the tags?
 
+i think for the tabs, i'll loop through each club and query clubtags using club's code to find its tag_id. from there, i'll query the tags table with the tag_id to get the string names for each tag. now that i have tags sorted out, i just appended it all onto a clubs_data dictionary to return. since jsonify can read python dicts, i'll just use jsonify to send the json array to the client. using flask, it works.
 
+push 12: converted custom Club class into dictionaries through looping and querying to get json response for get request.
 
+ok, that's the get route done. i think i'll do search clubs next because it's also querying clubs. i think we can simply send a get request to get the data, but we need to filter it first using query? and how efficient can we make it? if we use python, we'd have to query everything, which takes a while when scaled up. it might be faster to use sql to filter the database natively. like, before any data is sent to python we can like filter the database using sql because transfering the data then filtering is extra steps. 
+
+i think i'll add sql database filtering by replacing the .queryall already in app.py.
 
 
 ## Developing

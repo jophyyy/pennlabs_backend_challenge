@@ -22,7 +22,13 @@ def api():
 
 @app.route("/api/clubs")
 def clubs():
-    clubs = Club.query.all()
+    search_term = request.args.get("search")
+    if search_term:
+        clubs = Club.query.filter(Club.name.ilike(f"%{search_term}%")).all()
+    else:
+        clubs = Club.query.all()
+    
+    
     clubs_data = []
     
     for club in clubs:
@@ -41,6 +47,7 @@ def clubs():
         })
     
     return jsonify(clubs_data)
+
 
 
 if __name__ == "__main__":
