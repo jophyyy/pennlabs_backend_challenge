@@ -13,7 +13,13 @@ def create_user():
 def load_data():
     with open("clubs.json", "r") as file:
         data = json.load(file)
-        
+        for club in data:
+            club_obj = Club(
+                code = club["code"]
+                name = club["name"]
+                description = club["description"]
+            )
+        db.session.add(club_obj)
 
 # No need to modify the below code.
 if __name__ == "__main__":
@@ -26,5 +32,3 @@ if __name__ == "__main__":
         db.create_all()
         create_user()
         load_data()
-
-print(data)

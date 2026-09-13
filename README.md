@@ -67,7 +67,11 @@ push 6: fixed Club and Tag relationship, put user creation code in right place.
 
 great, user creation is working. now have to load clubs.json.
 
-the load_data function should hypothetically just open clubs.json, turn it into python, and then output it. i think i'll import the python function json to read the json from opening the file. imported json, read the file, testing to see if it actually worked with print statement.
+the load_data function should hypothetically just open clubs.json, turn it into python, and then output it. i think i'll import the python function json to read the json from opening the file. imported json, read the file, testing to see if it actually worked with print statement. pushing.
+
+ok the data is definitely read. it's not a very clean print though. i'll have to format it. i think looping through data for individual clubs and then calling their parts? maybe make a club object as well, to store each datapoint.
+
+push 8: looped through data while storing each individual's club's datapoint in a club object.
 
 
 ## Developing
