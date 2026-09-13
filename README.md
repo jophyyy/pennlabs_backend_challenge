@@ -65,6 +65,11 @@ there's error with Club and Tags tables. it seems like sqlalchemy doesn't know h
 
 push 6: fixed Club and Tag relationship, put user creation code in right place.
 
+great, user creation is working. now have to load clubs.json.
+
+the load_data function should hypothetically just open clubs.json, turn it into python, and then output it. i think i'll import the python function json to read the json from opening the file. imported json, read the file, testing to see if it actually worked with print statement.
+
+
 ## Developing
 
 0. Determine how to model the data contained within `clubs.json` and then complete `bootstrap.py`

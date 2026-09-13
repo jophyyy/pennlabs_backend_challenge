@@ -1,4 +1,5 @@
 import os
+import json
 
 from app import app, db, DB_FILE
 
@@ -10,8 +11,9 @@ def create_user():
     db.session.commit()
 
 def load_data():
-    print("TODO: Load in clubs.json to the database.")
-
+    with open("clubs.json", "r") as file:
+        data = json.load(file)
+        
 
 # No need to modify the below code.
 if __name__ == "__main__":
@@ -24,3 +26,5 @@ if __name__ == "__main__":
         db.create_all()
         create_user()
         load_data()
+
+print(data)
